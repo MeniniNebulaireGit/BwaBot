@@ -32,6 +32,16 @@ class admincmds(commands.Cog):
 
         await interaction.response.send_message(embed=embed)
 
+    @app_commands.command(name="kick", description="Kick a member")
+    @discord.app_commands.checks.has_permissions(kick_members=True)
+    @app_commands.allowed_installs(guilds=True, users=False)
+    async def kickmember(self, interaction: discord.Interaction, member: discord.Member, reason: str=None):
+        await member.kick(reason=reason)
+        embed=discord.Embed(name="Kicked member:", description=f"{member.mention} was kicked!", color=discord.Color.dark_red())
+        embed.add_field(name="Reason", value=f"{reason}", inline=False)
+        embed.set_footer(text=f"Kicked by {interaction.user.name}")
+        await interaction.response.send_message(embed=embed)
+
 
 
 
