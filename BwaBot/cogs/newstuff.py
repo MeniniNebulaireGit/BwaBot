@@ -7,19 +7,17 @@ from discord.ext import commands
 class newstuff(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.log_channel_id = 1387436381965390026  # your log channel ID here
-        self.allowed_guild_id = 1384216150522593454  # guild to restrict logging to
+        self.messagelog = get_messagelog_from_txt("config.txt")  # your log channel ID here
+        self.guild_id = get_guild_id_from_txt("config.txt")  # guild to restrict logging to
 
     @commands.Cog.listener()
     async def on_ready(self):
         print('New Stuff Cog has been loaded!')
 
     @commands.Cog.listener()
-    async def on_message_edit(self, before: discord.Message, after: discord.Message):
-        channel = self.bot.get_channel(self.log_channel_id)
+    async def on_message_edit(self, before: discord.Message, after: discord.Message, guild: self.guild_id):
+        channel = self.bot.get_channel(self.messagelog.channel_id)
         if before.author.bot:
-            return
-        if before.guild is None:
             return
         if channel is None:
             return

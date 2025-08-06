@@ -24,12 +24,16 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='bwa!', intents=intents)
 
+messagelog = get_messagelog_from_txt("config.txt")
+
 @bot.event
 async def on_ready():
     await bot.wait_until_ready()
 
+    startlog = get_startlog_from_txt("config.txt")
+
     # Channel grab check
-    channel = bot.get_channel(1397856242281746464)
+    channel = bot.get_channel(startlog)
     if channel is None:
         print("Channel not found. Check if the bot is in the server and the channel ID is correct.")
         return
