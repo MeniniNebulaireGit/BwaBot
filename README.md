@@ -1,9 +1,8 @@
-# LOGS ARE BROKEN RIGHT NOW, WILL FIX LATER. also admin commands sometimes look for the role "Staff" so if they dont work that's most likely why
+# LOGS ARE BROKEN RIGHT NOW, WILL FIX LATER. <br>also admin commands sometimes look for the role "Staff" so if they dont work that's most likely why
+<br>Remember to put your bot token in the .env file if you are going to use this yourself.
 this is just a personal project of mine to mess around with discord.py and understand how some of the coding aspects of bots work
 
 if you have any feature ideas, or requests be sure to let me know :3
-
-## The issues tab has some issues I've made note of personally, but if you use it and find issues feel free to let me know!
 
 # Current Features:
 
