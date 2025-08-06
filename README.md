@@ -20,4 +20,4 @@ if you have any feature ideas, or requests be sure to let me know :3
 
 # Notice: 
 I may be very infrequent with updates to this, so if there is an issue with the bot it may be better to reach out to me personally: menininebu on discord 
-PLEASE STATE THAT YOU NEED HELP WITH IT. OTHERWISE I WILL PROBABLY IGNORE YOUR DMS
+<br> <br>PLEASE STATE THAT YOU NEED HELP WITH IT. OTHERWISE I WILL PROBABLY IGNORE YOUR DMS
