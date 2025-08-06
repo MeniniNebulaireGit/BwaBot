@@ -18,10 +18,41 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Intents
 intents = discord.Intents.default()
+intents.message_content = True  # If you need to read messages
+intents.guilds = True
 intents.members = True
-intents.message_content = True
 
 bot = commands.Bot(command_prefix='bwa!', intents=intents)
+
+@bot.event
+async def on_ready():
+    await bot.wait_until_ready()
+
+    # Channel grab check
+    channel = bot.get_channel(1397856242281746464)
+    if channel is None:
+        print("Channel not found. Check if the bot is in the server and the channel ID is correct.")
+        return
+
+    # Status
+    await bot.change_presence(
+        status=discord.Status.do_not_disturb,
+        activity=discord.Activity(type=discord.ActivityType.playing, name="BWABWABWA")
+    )
+
+    # Startup Embed
+    starttime = datetime.datetime.now()
+    embed = discord.Embed(title="Bot Online!", color=discord.Color.dark_green())
+    embed.add_field(name="Start Day:", value=f"```{starttime:%m/%d/%Y}```", inline=True)
+    embed.add_field(name="Start Time:", value=f"```{starttime:%I:%M:%S %p}```", inline=True)
+    embed.add_field(name="Bot Status:", value="```Ready!```", inline=False)
+
+    try:
+        await channel.send(embed=embed)
+    except discord.Forbidden:
+        print("Bot doesn't have permission to send messages in the channel.")
+    except Exception as e:
+        print(f"Failed to send embed: {e}")
 
 async def load():
     for item in os.listdir("./cogs"):
@@ -50,21 +81,6 @@ async def dailyreset(interaction: discord.Interaction):
     save_json("daily.json", default_data)
     print ("Json Reset")
     await interaction.response.send_message("Successfully reset Daily.Json")
-
-@bot.event
-async def on_ready():
-    channel = bot.get_channel(1397856242281746464)
-    starttime = datetime.datetime.now()
-
-    await bot.change_presence(
-        status=discord.Status.online,
-        activity=discord.Activity(type=discord.ActivityType.playing, name="BWA")
-    )
-    embed = discord.Embed(title="Bot Online!", color=discord.Color.dark_green())
-    embed.add_field(name="Start Day:", value=f"```{starttime:%m/%d/%Y}```", inline=True)
-    embed.add_field(name="Start Time:", value=f"```{starttime:%I:%M:%S %p}```", inline=True)
-    embed.add_field(name="Bot Status:", value="```Ready!```", inline=False)
-    await channel.send(embed=embed)
 
 @bot.tree.command(name="sync", description="Syncs slash commands.")
 @app_commands.allowed_installs(guilds=True, users=False)
