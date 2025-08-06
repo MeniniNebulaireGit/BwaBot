@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 import os
 import logging
@@ -8,6 +8,9 @@ import asyncio
 import tracemalloc
 import sys
 from dotenv import load_dotenv
+import json
+import asyncio
+from datetime import datetime, time
 
 tracemalloc.start()
 load_dotenv()
@@ -27,11 +30,26 @@ async def load():
                 await bot.load_extension(f"cogs.{item[:-3]}")
             except Exception as e:
                 print(f"BWAAA ERROR from {item}: {e}")
+def load_json(file):
+    with open(file, "r") as f:
+            return json.load(f)
+
+def save_json(file, data):
+    with open(file, "w") as f:
+        json.dump(data, f, indent=4)
 
 @bot.tree.command(name="ping", description="Latency Pings")
 async def ping(interaction: discord.Interaction):
     emb=discord.Embed(title="Pong!", description=f"{round(bot.latency * 1000)}ms", color=discord.Color.green())
     await interaction.response.send_message(embed=emb)
+
+@tasks.loop(time=time(0,0))
+async def dailyreset(interaction: discord.Interaction):
+    default_data = {}
+    print("Resetting Daily.Json")
+    save_json("daily.json", default_data)
+    print ("Json Reset")
+    await interaction.response.send_message("Successfully reset Daily.Json")
 
 @bot.event
 async def on_ready():
