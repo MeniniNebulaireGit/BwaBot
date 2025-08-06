@@ -1,3 +1,4 @@
+# LOGS ARE BROKEN RIGHT NOW, WILL FIX LATER. also admin commands sometimes look for the role "Staff" so if they dont work that's most likely why
 this is just a personal project of mine to mess around with discord.py and understand how some of the coding aspects of bots work
 
 if you have any feature ideas, or requests be sure to let me know :3
